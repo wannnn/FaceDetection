@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import com.claire.facedetection.base.BaseFragment
 import com.claire.facedetection.databinding.FragMainBinding
-import com.google.mlkit.vision.face.FaceDetectorOptions
 
 class MainFragment : BaseFragment<FragMainBinding>() {
 
@@ -21,18 +21,15 @@ class MainFragment : BaseFragment<FragMainBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Request camera permissions
-        if (allPermissionsGranted()) {
-            startCamera()
-        } else {
-            ActivityCompat.requestPermissions(
-                requireActivity(), REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
+        binding.btnClick.setOnClickListener {
+            // Request camera permissions
+            if (allPermissionsGranted()) {
+                findNavController().navigate(MainFragmentDirections.toFaceDetectionFragment())
+            } else {
+                ActivityCompat.requestPermissions(
+                    requireActivity(), REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
+            }
         }
-
-        // Real-time contour detection
-        val realTimeOpts = FaceDetectorOptions.Builder()
-            .setContourMode(FaceDetectorOptions.CONTOUR_MODE_ALL)
-            .build()
     }
 
     override fun onRequestPermissionsResult(
@@ -41,7 +38,7 @@ class MainFragment : BaseFragment<FragMainBinding>() {
         grantResults: IntArray) {
         if (requestCode == REQUEST_CODE_PERMISSIONS) {
             if (allPermissionsGranted()) {
-                startCamera()
+                findNavController().navigate(MainFragmentDirections.toFaceDetectionFragment())
             } else {
                 Toast.makeText(context,
                     "Permissions not granted by the user.",
@@ -54,11 +51,6 @@ class MainFragment : BaseFragment<FragMainBinding>() {
         ContextCompat.checkSelfPermission(
             requireContext(), it) == PackageManager.PERMISSION_GRANTED
     }
-
-    private fun startCamera() {
-
-    }
-
 
     companion object {
         private const val REQUEST_CODE_PERMISSIONS = 10

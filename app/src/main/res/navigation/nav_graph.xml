@@ -9,5 +9,16 @@
         android:id="@+id/mainFragment"
         android:name="com.claire.facedetection.main.MainFragment"
         android:label="MainFragment"
-        tools:layout="@layout/frag_main"/>
+        tools:layout="@layout/frag_main">
+        <action
+            android:id="@+id/to_faceDetectionFragment"
+            app:destination="@id/faceDetectionFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/faceDetectionFragment"
+        android:name="com.claire.facedetection.facedetection.FaceDetectionFragment"
+        android:label="FaceDetectionFragment"
+        tools:layout="@layout/frag_face_detection"/>
+
 </navigation>
