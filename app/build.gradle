@@ -44,7 +44,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha03'
 
     // firebase
-    implementation 'com.google.firebase:firebase-analytics:17.2.2'
+    implementation 'com.google.firebase:firebase-analytics:17.4.3'
     implementation 'com.google.android.gms:play-services-mlkit-face-detection:16.0.0'
 
     // cameraX
